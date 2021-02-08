@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
 
     void checkRunning()
     {
-        //Running
+        //player running in the game by LeftShift
         if (Input.GetKey(KeyCode.LeftShift))
         {
             MovementSpeed = 120;
@@ -47,13 +47,14 @@ public class PlayerController : MonoBehaviour
 
     void checkDirection()
     {
-        //Facing left or right
-        if (Input.GetKeyDown(KeyCode.A) && rotation > 0)
+        //Press A to face left
+        if (Input.GetKeyDown(KeyCode.A) && rotation > 0 && health > 0)
         {
             transform.Rotate(new Vector3(0, 180, 0));
             rotation = -1;
         }
-        if (Input.GetKeyDown(KeyCode.D) && rotation < 0)
+        //Press D to face right
+        if (Input.GetKeyDown(KeyCode.D) && rotation < 0 && health > 0)
         {
             transform.Rotate(new Vector3(0, 180, 0));
             rotation = 1;
@@ -63,14 +64,15 @@ public class PlayerController : MonoBehaviour
     void checkFight()
     {
         var movement = Input.GetAxis("Horizontal");
-        //Fight
+        //Player fightting with enemy
         if (Input.GetKey(KeyCode.J))
         {
             animator.SetFloat("Player_speed", 0);
             animator.SetBool("Fight", true);
 
         }
-        else
+        //Player move left and right when health is greater than 3
+        else if(health > 0)
         {
             animator.SetBool("Fight", false);
             transform.position += new Vector3(movement, 0, 0) * Time.deltaTime * MovementSpeed;
@@ -81,24 +83,25 @@ public class PlayerController : MonoBehaviour
     void checkHealth()
     {
         //Health visualization
-        if (health == 3)
+        if (health == 3)//3 heart
         {
             heart1.SetActive(true);
             heart2.SetActive(true);
             heart3.SetActive(true);
         }
-        else if (health == 2)
+        else if (health == 2)//2 heart
         {
             heart1.SetActive(true);
             heart2.SetActive(true);
             heart3.SetActive(false);
         }
-        else if (health == 1)
+        else if (health == 1)//1 heart
         {
             heart1.SetActive(true);
             heart2.SetActive(false);
             heart3.SetActive(false);
         }
+        //Death
         else if (health <= 0 && animatorInfo.normalizedTime >= 1.0f && animatorInfo.IsName("Player_death"))
         {
             heart1.SetActive(false);
