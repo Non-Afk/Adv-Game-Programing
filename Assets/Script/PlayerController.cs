@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             animator.SetBool("Fight", false);
-            transform.position += new Vector3(movement, 0, 0);// * Time.deltaTime * MovementSpeed;
+            transform.position += new Vector3(movement, 0, 0) * Time.deltaTime * MovementSpeed;
             animator.SetFloat("Player_speed", Mathf.Abs(movement));
 
         }
