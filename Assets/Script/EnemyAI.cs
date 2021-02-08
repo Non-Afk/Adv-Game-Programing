@@ -15,4 +15,15 @@ public class EnemyAI : MonoBehaviour
     {
         
     }
+    public void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            if (Input.GetKey(KeyCode.J))
+            {
+                Destroy(this.gameObject);
+            }
+
+        }
+    }
 }

@@ -108,14 +108,23 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void OnCollisionStay2D(Collision2D collision)
+    public void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Enemy" && Input.GetKey(KeyCode.J))
-        {
-            Destroy(this.gameObject);
-        }else if(collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy")
         {
             health -= 1;
+            transform.position += new Vector3(-10, 0, 0) * Time.deltaTime * MovementSpeed;
+
+
         }
     }
+
+    /*public void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            Invoke("Damage delay", 2);
+            health -= 1;
+        }
+    }*/
 }
